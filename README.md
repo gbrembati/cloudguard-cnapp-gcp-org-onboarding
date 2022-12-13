@@ -1,4 +1,4 @@
-# CloudGuard CNAPP Google Tenant Terraform Onboarding
+# CloudGuard CNAPP Google Organization Onboarding
 This Terraform project is intended to be used to onboard an entire Google Tenant in one-shot.     
 What it does is configuring, via **Terraform**, an existing CloudGuard CSPM Portal and Google environment that has multiple projects.      
  
