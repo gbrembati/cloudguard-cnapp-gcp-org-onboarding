@@ -44,7 +44,7 @@ module "gcp-svc-optional" {
 }
 
 resource "local_sensitive_file" "checkpoint-sa-key-json" {
-    content  = jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).private_key_id
+    content  = base64decode(google_service_account_key.checkpoint-sa-key.private_key)
     filename = "${path.module}/checkpoint-sa-key.json"
 }
 
