@@ -20,7 +20,7 @@ resource "google_organization_iam_binding" "checkpoint-sa-org-permissions" {
 }
 
 data "google_projects" "google-org-projects" {
-  filter = "parent.id:${data.google_organization.google-org.org_id}"
+  filter = "lifecycleState:ACTIVE"
 }
 
 module "gcp-svc-mandatory" {
