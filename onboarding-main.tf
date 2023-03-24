@@ -26,7 +26,6 @@ data "google_projects" "google-org-projects" {
 module "gcp-svc-mandatory" {
   count     = length(data.google_projects.google-org-projects.projects)
   source    = "terraform-google-modules/project-factory/google//modules/project_services"
-  version   = "3.3.0"
 
   project_id    = data.google_projects.google-org-projects.projects[count.index].project_id
   activate_apis = var.gcp-svc-list-mandatory
@@ -37,7 +36,6 @@ module "gcp-svc-mandatory" {
 module "gcp-svc-optional" {
   count     = length(data.google_projects.google-org-projects.projects)
   source    = "terraform-google-modules/project-factory/google//modules/project_services"
-  version   = "3.3.0"
 
   project_id    = data.google_projects.google-org-projects.projects[count.index].project_id
   activate_apis = var.gcp-svc-list-optional
@@ -46,7 +44,7 @@ module "gcp-svc-optional" {
 }
 
 resource "local_sensitive_file" "checkpoint-sa-key-json" {
-    content  = "jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).private_key_id"
+    content  = jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).private_key_id
     filename = "${path.module}/checkpoint-sa-key.json"
 }
 
