@@ -52,7 +52,7 @@ resource "dome9_cloudaccount_gcp" "connect-gcp-project" {
   for_each    = { for project in toset(data.google_projects.google-org-projects.projects) : project.name => project } 
   
   name                 = each.value.name 
-	project_id           = each.value.project_id
+  project_id           = each.value.project_id
   private_key_id       = jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).private_key_id
   private_key          = jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).private_key
   client_email         = jsondecode(base64decode(google_service_account_key.checkpoint-sa-key.private_key)).client_email
