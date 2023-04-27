@@ -24,20 +24,20 @@ data "google_projects" "google-org-projects" {
 }
 
 module "gcp-svc-mandatory" {
-  count     = length(data.google_projects.google-org-projects.projects)
+  for_each    = { for project in toset(data.google_projects.google-org-projects.projects) : project.name => project } 
   source    = "terraform-google-modules/project-factory/google//modules/project_services"
 
-  project_id    = data.google_projects.google-org-projects.projects[count.index].project_id
+  project_id    = each.value.project_id
   activate_apis = var.gcp-svc-list-mandatory
   disable_dependent_services  = false
   disable_services_on_destroy = false
 }
 
 module "gcp-svc-optional" {
-  count     = length(data.google_projects.google-org-projects.projects)
+  for_each    = { for project in toset(data.google_projects.google-org-projects.projects) : project.name => project } 
   source    = "terraform-google-modules/project-factory/google//modules/project_services"
 
-  project_id    = data.google_projects.google-org-projects.projects[count.index].project_id
+  project_id    = each.value.project_id
   activate_apis = var.gcp-svc-list-optional
   disable_dependent_services  = false
   disable_services_on_destroy = false
